@@ -1,15 +1,30 @@
-const sendgrid = require("@sendgrid/mail");
+const nodemailer = require('nodemailer')
 
-exports.sendEmail = async to_email => {
-    const apiKey = '';
-    sendgrid.setApiKey(apiKey);
-    const message = {
-        to: to_email,
-        from: "noreply@pocmodecpoc.com.br",
-        subject: "VOCÊ PRECISA RESPONDER O COMENTÁRIO",
-        text: "VOCÊ PRECISA RESPONDER O COMENTÁRIO",
-        html: 'VOCÊ FOI MARCADO'
-    };
+const sendEmail = async (comment) => {
+    
+    const testAccount = await nodemailer.createTestAccount();
+    let transporter = nodemailer.createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        secure: false,
+        auth: {
+            user: testAccount.user, 
+            pass: testAccount.pass
+        }
+    });
 
-    await sendgrid.send(message);
+    let info = await transporter.sendMail({
+        from: '"Proof Of Concept - MODEC 👻" <noreply@matheuscruz.com>',
+        to: comment.to,
+        subject: 'YOU HAVE A NEW COMMENT',
+        text: 'You have a new comment',
+        html: `<b>Comment:</b> <bold>${comment.content}</bold>`
+    });
+
+    console.log('Message sent: %s', info.messageId);
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 };
+
+module.exports = {
+    sendEmail
+}
