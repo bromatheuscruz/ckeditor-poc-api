@@ -1,9 +1,8 @@
 const nodemailer = require("nodemailer");
 
-const sendEmail = async email => {
-  
-  const recipients = email.recipients.filter(
-    recipient => email.author !== recipient.id
+const sendEmail = async comment => {
+  const recipients = comment.recipients.filter(
+    recipient => comment.author !== recipient.id
   );
   
   const testAccount = await nodemailer.createTestAccount();
@@ -22,11 +21,10 @@ const sendEmail = async email => {
     to: recipients.map(recipient => recipient.email),
     subject: "YOU HAVE A NEW COMMENT",
     text: "You have a new comment",
-    html: `<b>Comment:</b> <bold>${email.comment}</bold>`
+    html: `<b>Comment:</b> <bold>${comment.content}</bold>`
   });
 
-  const socket = require("../../bin/socket");
-  socket.emit("email:sent", nodemailer.getTestMessageUrl(info));
+  return nodemailer.getTestMessageUrl(info);
 };
 
 module.exports = {

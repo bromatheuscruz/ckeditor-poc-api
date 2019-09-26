@@ -18,7 +18,7 @@ const getMockDocumentParticipants = () => {
         },
         {
             // comment
-            id: 'f0621058-714a-4bf8-a8d7-922c88f4b20f',
+            id: '66c4ab1b-284e-4f5a-b18a-f83101d8ec0a',
             participants: [
                 {
                     id: '4dfddafe-6f3c-4d34-88e3-4de6d12a40c1',
