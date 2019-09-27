@@ -6,6 +6,7 @@ const mockDocuments = require("../mock-repository/documents");
 const mockReferences = require("../mock-repository/references");
 const mockDocumentPage = require("../mock-pages/reference-document");
 const socket = require("../../bin/socket");
+const path = require("path");
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
 });
+
+app.use(express.static(__dirname + "/www"));
 
 app.get("/references", (req, res) => {
 
