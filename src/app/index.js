@@ -24,39 +24,43 @@ app.use((req, res, next) => {
 });
 
 app.get("/references", (req, res) => {
+
   res.send({
     success: true,
     references: mockReferences.getMockReferences()
   });
+
 });
 
 app.get("/references/:id", (req, res) => {
-  const doc = mockReferences.getMockReferences().find(item => item.docId === req.params.id);
-  res.send(mockDocumentPage.getDocumentReferencePage(doc));
+
+  const { id } = req.params;
+  const references = mockReferences.getMockReferences();
+  const document = references.find(item => item.document_reference_id === id);
+
+  if (document) {
+    const page = mockDocumentPage.getDocumentReferencePage(document);
+    res.send(page);
+  } else {
+    res.send('Reference not found');
+  }
+
 });
 
-app.put("/documents/:id/topics/:topicId", (req, res, next) => {
-  const { topicId } = req.params;
+app.put("/topics/:id", (req, res, next) => {
+  
+  const { id } = req.params;
   const requestTopic = req.body;
-  console.log(requestTopic);
-
   const topics = mockTopics.getMockTopics();
+  const newMockTopics = topics.map(topic => topic.id === id ? requestTopic : topic );
+  const topicsUpdated = mockTopics.updateTopics(newMockTopics);
 
-  const newMockTopics = topics.map(topic => {
-    if (topic.id == topicId) {
-      return requestTopic;
-    } else {
-      return topic;
-    }
-  });
-
-  console.log(mockTopics.updateTopics(newMockTopics));
-
-
+  console.log("topicsUpdated", topicsUpdated);
 
 });
 
 app.get("/documents/:id/topics/:topicId", (req, res, next) => {
+  
   const { id, topicId } = req.params;
 
   let topics = mockTopics.getMockTopics();

@@ -29,7 +29,7 @@ const getDocumentReferencePage = document => {
                 </div>
             </div>
             <div class="container mt-5 text-center">
-                <h2>Referenced Document</h2>
+                <h2>Document</h2>
                 <div class="card border border-secondary mb-3 text-secondary mt-5">
                     <div class="container-fluid">
                         <div class="row border p-2">
@@ -40,13 +40,13 @@ const getDocumentReferencePage = document => {
                             <div class="border-right border-secondary col-2 text-left"> <b>Technical
                                     Name
                                 </b> </div>
-                            <div class="col-10">${document.technicalName} </div>
+                            <div class="col-10">${document.technical_name} </div>
                         </div>
                         <div class="row border p-2">
                             <div class="border-right border-secondary col-2 text-left"><b>Document Id
                                 </b>
                             </div>
-                            <div class="col-10" style="margin-left: 0px;">${document.docId} </div>
+                            <div class="col-10" style="margin-left: 0px;">${document.document_reference_id} </div>
                         </div>
                         <div class="row border p-2">
                             <div class="border-right border-secondary col-2 text-left"><b>Link </b>
