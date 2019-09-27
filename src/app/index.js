@@ -10,6 +10,7 @@ const socket = require("../../bin/socket");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
@@ -32,6 +33,27 @@ app.get("/references", (req, res) => {
 app.get("/references/:id", (req, res) => {
   const doc = mockReferences.getMockReferences().find(item => item.docId === req.params.id);
   res.send(mockDocumentPage.getDocumentReferencePage(doc));
+});
+
+app.put("/documents/:id/topics/:topicId", (req, res, next) => {
+  const { topicId } = req.params;
+  const requestTopic = req.body;
+  console.log(requestTopic);
+
+  const topics = mockTopics.getMockTopics();
+
+  const newMockTopics = topics.map(topic => {
+    if (topic.id == topicId) {
+      return requestTopic;
+    } else {
+      return topic;
+    }
+  });
+
+  console.log(mockTopics.updateTopics(newMockTopics));
+
+
+
 });
 
 app.get("/documents/:id/topics/:topicId", (req, res, next) => {
@@ -63,11 +85,6 @@ app.get("/documents/:id/participants", (req, res, next) => {
       message: "Participants not foud"
     })
   }
-});
-
-
-app.post("/documents/:id/threads", (req, res, next) => {
-  const { id } = req.params;
 });
 
 app.post("/documents/:id/threads/:threadId/comments", async (req, res, next) => {

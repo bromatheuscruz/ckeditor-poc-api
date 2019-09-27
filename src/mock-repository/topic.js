@@ -1,4 +1,4 @@
-const mockTopics = [
+let mockTopics = [
     {
         // comments
         id: 'e6af2373-b793-45c4-9fb4-98b79a574180',
@@ -55,4 +55,8 @@ const getMockTopics = () => {
     return mockTopics;
 };
 
-module.exports = { getMockTopics };
+const updateTopics = (topics) => {
+    mockTopics = topics;
+    return mockTopics;
+};
+module.exports = { getMockTopics, updateTopics };
