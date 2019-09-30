@@ -45,8 +45,9 @@ class CommentsIntegration {
           createdAt
         });
       },
-      updateComment: function (comment) {
-        return Promise.resolve();
+      updateComment: (comment) => {
+        console.log("updateComment", comment);
+        return Promise.resolve().then();
       },
       removeComment: function (comment) {
         $(`#${comment.commentId}`).remove();

@@ -14,7 +14,7 @@ const addCommentToCustomCommentBox = async comment => {
   </div>
   <div id="body-${comment.commentId}" class="card-body" style="cursor: pointer;" >
       <div class="row">
-          <div class="col-md-10">
+          <div comment-content class="col-md-10">
               ${comment.content}
           </div>
           <div class="col-md-2 text-right" id="toggle-${comment.commentId}" data-toggle="tooltip" title="Click here to see options">
