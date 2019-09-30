@@ -39,7 +39,7 @@
     <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
-        const socket = io("https://poc-radix.herokuapp.com/");
+        const socket = io("http://localhost:3000/");
 
         socket.on("email:sent", message => addNotification(message));
 

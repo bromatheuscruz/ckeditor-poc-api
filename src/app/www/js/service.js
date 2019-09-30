@@ -1,6 +1,6 @@
 async function emailService(email) {
     $.ajax({
-        url: "https://poc-radix.herokuapp.com/email/notify",
+        url: "http://localhost:3000/email/notify",
         dataType: "JSON",
         contentType: "application/json",
         data: JSON.stringify(email),
@@ -10,7 +10,7 @@ async function emailService(email) {
 
 async function addCommentService(comment) {
     $.ajax({
-        url: `https://poc-radix.herokuapp.com/documents/${comment.doc}/threads/${comment.threadId}/comments`,
+        url: `http://localhost:3000/documents/${comment.doc}/threads/${comment.threadId}/comments`,
         dataType: "JSON",
         contentType: "application/json",
         data: JSON.stringify(comment),
@@ -20,26 +20,26 @@ async function addCommentService(comment) {
 
 async function getParticipantsFromDocument(documentId) {
     const data = await $.get(
-        `https://poc-radix.herokuapp.com/documents/${documentId}/participants`
+        `http://localhost:3000/documents/${documentId}/participants`
     );
     return data.participants;
 }
 
 async function getTopicFromDocument(documentId, topicId) {
     const data = await $.get(
-        `https://poc-radix.herokuapp.com/documents/${documentId}/topics/${topicId}`
+        `http://localhost:3000/documents/${documentId}/topics/${topicId}`
     );
     return data.topic;
 }
 
 async function getAllReferences() {
-    const data = await $.get("https://poc-radix.herokuapp.com/references");
+    const data = await $.get("http://localhost:3000/references");
     return data.references;
 }
 
 async function updateTopicData(topic) {
     const data = await $.ajax({
-        url: `https://poc-radix.herokuapp.com/topics/${topic.id}`,
+        url: `http://localhost:3000/topics/${topic.id}`,
         dataType: "JSON",
         contentType: "application/json",
         data: JSON.stringify(topic),
@@ -51,7 +51,7 @@ async function updateTopicData(topic) {
 
 async function deleteComment(comment) {
     const data = await $.ajax({
-        url: `https://poc-radix.herokuapp.com/documents/66c4ab1b-284e-4f5a-b18a-f83101d8ec0a/threads/${comment.threadId}/comments/${comment.commentId}`,
+        url: `http://localhost:3000/documents/66c4ab1b-284e-4f5a-b18a-f83101d8ec0a/threads/${comment.threadId}/comments/${comment.commentId}`,
         method: "DELETE"
     })
     return data;
@@ -59,7 +59,7 @@ async function deleteComment(comment) {
 
 async function updateComment(comment) {
     const data = await $.ajax({
-        url: `https://poc-radix.herokuapp.com/documents/66c4ab1b-284e-4f5a-b18a-f83101d8ec0a/threads/${comment.threadId}/comments/${comment.commentId}`,
+        url: `http://localhost:3000/documents/66c4ab1b-284e-4f5a-b18a-f83101d8ec0a/threads/${comment.threadId}/comments/${comment.commentId}`,
         method: "PUT",
         dataType: "JSON",
         contentType: "application/json",
