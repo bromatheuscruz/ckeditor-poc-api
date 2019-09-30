@@ -208,7 +208,6 @@
                 const id = $(elem).attr("data-mention");
 
                 if (!refController.alreadyExists(document_reference_id)) {
-                    refController.add(document_reference_id)
                     addNewReferenceToReferenceBox({
                         id,
                         document_reference_id,
@@ -236,7 +235,6 @@
 
         function initReferenceProcess(model) {
             if (!refController.alreadyExists(model.document_reference_id)) {
-                refController.add(model["document-reference-id"] || model.document_reference_id);
                 addNewReferenceToReferenceBox(model);
             }
         };
@@ -248,6 +246,8 @@
                             </div>`;
 
             $(template).appendTo("#reference-box");
+
+            refController.add(model["document-reference-id"] || model.document_reference_id);
 
         };
 
