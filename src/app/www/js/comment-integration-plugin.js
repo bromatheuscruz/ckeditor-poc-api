@@ -46,10 +46,26 @@ class CommentsIntegration {
         });
       },
       updateComment: function (comment) {
+        console.log(comment);
+        $("[comment-content]").each((idx, elem) => {
+          
+          const element = $(elem);
+          const commentId = element.attr("comment-content");
+          
+          if (comment.commentId == commentId) {
+            element.empty();
+            $(comment.content).appendTo(element);
+          }
+
+          updateComment(comment);
+
+        });
+        
         return Promise.resolve();
       },
       removeComment: function (comment) {
         $(`#${comment.commentId}`).remove();
+        deleteComment(comment);
         return Promise.resolve();
       }
     }

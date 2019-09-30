@@ -51,11 +51,11 @@ app.get("/references/:id", (req, res) => {
 });
 
 app.put("/topics/:id", (req, res, next) => {
-  
+
   const { id } = req.params;
   const requestTopic = req.body;
   const topics = mockTopics.getMockTopics();
-  const newMockTopics = topics.map(topic => topic.id === id ? requestTopic : topic );
+  const newMockTopics = topics.map(topic => topic.id === id ? requestTopic : topic);
   const topicsUpdated = mockTopics.updateTopics(newMockTopics);
 
   console.log("topicsUpdated", topicsUpdated);
@@ -63,7 +63,7 @@ app.put("/topics/:id", (req, res, next) => {
 });
 
 app.get("/documents/:id/topics/:topicId", (req, res, next) => {
-  
+
   const { id, topicId } = req.params;
 
   let topics = mockTopics.getMockTopics();
@@ -131,10 +131,7 @@ app.post("/documents/:id/threads/:threadId/comments", async (req, res, next) => 
 
 app.delete("/documents/:id/threads/:threadId/comments/:commentId", async (req, res, next) => {
   const { id, threadId, commentId } = req.params;
-  const comment = req.body;
-
   const topics = mockTopics.getMockTopics();
-
   let topic = topics.find(topic => topic.document.id == id);
 
   if (!topic) {
@@ -154,6 +151,45 @@ app.delete("/documents/:id/threads/:threadId/comments/:commentId", async (req, r
   }
 
   thread.comments = thread.comments.filter(comment => comment.commentId != commentId);
+
+  res.send({
+    success: true,
+    message: 'Success'
+  })
+});
+
+app.put("/documents/:id/threads/:threadId/comments/:commentId", async (req, res, next) => {
+  const { id, threadId, commentId } = req.params;
+  const commentFromBody = req.body;
+  const topics = mockTopics.getMockTopics();
+  let topic = topics.find(topic => topic.document.id == id);
+
+  if (!topic) {
+    return res.send({
+      success: false,
+      message: 'Topic not found'
+    });
+  }
+
+  let thread = topic.commentThreads.find(thread => thread.threadId == threadId);
+
+  if (!thread) {
+    return res.send({
+      success: false,
+      message: 'Thread not found'
+    });
+  }
+
+  thread.comments = thread.comments.map(comment => {
+    if (comment.commentId === commentId) {
+      return {
+        ...comment,
+        content: commentFromBody.content
+      }
+    } else {
+      return comment;
+    }
+  });
 
   res.send({
     success: true,

@@ -49,6 +49,26 @@ async function updateTopicData(topic) {
     return data;
 };
 
+async function deleteComment(comment) {
+    const data = await $.ajax({
+        url: `https://poc-radix.herokuapp.com/documents/66c4ab1b-284e-4f5a-b18a-f83101d8ec0a/threads/${comment.threadId}/comments/${comment.commentId}`,
+        method: "DELETE"
+    })
+    return data;
+}
+
+async function updateComment(comment) {
+    const data = await $.ajax({
+        url: `https://poc-radix.herokuapp.com/documents/66c4ab1b-284e-4f5a-b18a-f83101d8ec0a/threads/${comment.threadId}/comments/${comment.commentId}`,
+        method: "PUT",
+        dataType: "JSON",
+        contentType: "application/json",
+        data: JSON.stringify(comment),
+        method: "PUT"
+    });
+    return data;
+}
+
 function addBackupData(key, value) {
     localStorage.setItem(key, value);
 }
