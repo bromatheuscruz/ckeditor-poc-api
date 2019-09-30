@@ -129,4 +129,36 @@ app.post("/documents/:id/threads/:threadId/comments", async (req, res, next) => 
   })
 });
 
+app.delete("/documents/:id/threads/:threadId/comments/:commentId", async (req, res, next) => {
+  const { id, threadId, commentId } = req.params;
+  const comment = req.body;
+
+  const topics = mockTopics.getMockTopics();
+
+  let topic = topics.find(topic => topic.document.id == id);
+
+  if (!topic) {
+    return res.send({
+      success: false,
+      message: 'Topic not found'
+    });
+  }
+
+  let thread = topic.commentThreads.find(thread => thread.threadId == threadId);
+
+  if (!thread) {
+    return res.send({
+      success: false,
+      message: 'Thread not found'
+    });
+  }
+
+  thread.comments = thread.comments.filter(comment => comment.commentId != commentId);
+
+  res.send({
+    success: true,
+    message: 'Success'
+  })
+});
+
 module.exports = app;
