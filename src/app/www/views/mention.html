@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/ckeditor.css">
     <link rel="stylesheet" href="../styles/mention-style.css">
     <title>POC</title>
@@ -199,7 +200,7 @@
         };
 
         function renderMentionReferences() {
-            
+
             $("[document-reference-id]").each((idx, elem) => {
 
                 const technical_name = $(elem).attr("technical-name");
@@ -222,7 +223,7 @@
         function updateReferenceBox() {
             const mentions = $(document).find(".mention").length;
             const spinner = `<div class="spinner-border text-center" role="status"><span class="sr-only">Loading...</span></div>`;
-            
+
             $("#reference-box").addClass("text-center").empty();
             refController.removeAll();
 
@@ -240,15 +241,18 @@
         };
 
         function addNewReferenceToReferenceBox(model) {
-            
+
             const template = `<div reference document-reference-id="${model.document_reference_id || model["document-reference-id"]}">
                                 <a target="_blank" href="${model.link}" class="btn btn-block btn-link" data-toggle="tooltip" title="Technical name: ${model.technical_name || model["technical-name"]}">${model.id}</a>
                             </div>`;
 
-            $(template).appendTo("#reference-box");
 
-            refController.add(model["document-reference-id"] || model.document_reference_id);
+            const id = model.document_reference_id || model["document-reference-id"];
 
+            if (!refController.alreadyExists(id)) {
+                $(template).appendTo("#reference-box");
+                refController.add(id);
+            }
         };
 
         function customItemRenderer(item) {
