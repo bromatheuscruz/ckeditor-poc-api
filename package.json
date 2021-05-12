@@ -14,7 +14,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.1",
-    "nodemailer": "^6.3.0",
+    "nodemailer": "^6.4.16",
     "socket.io": "^2.3.0",
     "@ckeditor/ckeditor5-adapter-ckfinder": "^11.0.5",
     "@ckeditor/ckeditor5-alignment": "^11.2.0",
